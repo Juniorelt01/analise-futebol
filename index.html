@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análise de Futebol - Gols, Escanteios e Cartões</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #eee;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #00ff88;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    canvas {
+      margin-top: 30px;
+    }
+    .dados {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #333;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Análise Pré-Jogo</h1>
+    <input type="text" id="buscarJogo" placeholder="Digite o nome dos times">
+    <button onclick="carregarAnalise()">Analisar</button>
+
+    <div class="dados" id="infoJogo">
+      <h2>Corinthians x Palmeiras - 06/06/2025</h2>
+      <p><strong>Últimos 5 jogos:</strong></p>
+      <ul>
+        <li>Corinthians: 1x0, 2x2, 0x1, 3x1, 1x1</li>
+        <li>Palmeiras: 2x1, 0x0, 1x2, 3x0, 2x2</li>
+      </ul>
+      <p><strong>Médias (últimos 5 jogos):</strong></p>
+      <ul>
+        <li>Gols marcados: Corinthians 1.4 | Palmeiras 1.6</li>
+        <li>Escanteios: Corinthians 5.8 | Palmeiras 6.2</li>
+        <li>Cartões: Corinthians 2.4 | Palmeiras 1.8</li>
+      </ul>
+      <p><strong>+2.5 gols:</strong> Corinthians: 2/5 | Palmeiras: 3/5</p>
+      <p><strong>Tendência:</strong> Jogo com tendência a gols e escanteios, média alta de cartões.</p>
+    </div>
+
+    <canvas id="graficoGols" width="600" height="300"></canvas>
+    <canvas id="graficoEscanteios" width="600" height="300"></canvas>
+    <canvas id="graficoCartoes" width="600" height="300"></canvas>
+  </div>
+
+  <script>
+    function carregarAnalise() {
+      const gols = document.getElementById('graficoGols').getContext('2d');
+      new Chart(gols, {
+        type: 'line',
+        data: {
+          labels: ['Jogo 1', 'Jogo 2', 'Jogo 3', 'Jogo 4', 'Jogo 5', 'Jogo 6', 'Jogo 7', 'Jogo 8', 'Jogo 9', 'Jogo 10', 'Jogo 11', 'Jogo 12', 'Jogo 13', 'Jogo 14', 'Jogo 15', 'Jogo 16', 'Jogo 17', 'Jogo 18', 'Jogo 19', 'Jogo 20'],
+          datasets: [
+            {
+              label: 'Corinthians - Gols',
+              data: [1, 2, 1, 0, 3, 1, 2, 1, 1, 0, 2, 1, 0, 3, 1, 1, 1, 2, 0, 2],
+              borderColor: '#00ff88',
+              fill: false
+            },
+            {
+              label: 'Palmeiras - Gols',
+              data: [2, 0, 1, 3, 2, 1, 2, 0, 1, 2, 3, 1, 0, 1, 2, 2, 1, 3, 1, 1],
+              borderColor: '#ffaa00',
+              fill: false
+            }
+          ]
+        }
+      });
+
+      const escanteios = document.getElementById('graficoEscanteios').getContext('2d');
+      new Chart(escanteios, {
+        type: 'bar',
+        data: {
+          labels: ['Jogo 1', 'Jogo 2', 'Jogo 3', 'Jogo 4', 'Jogo 5', 'Jogo 6', 'Jogo 7', 'Jogo 8', 'Jogo 9', 'Jogo 10', 'Jogo 11', 'Jogo 12', 'Jogo 13', 'Jogo 14', 'Jogo 15', 'Jogo 16', 'Jogo 17', 'Jogo 18', 'Jogo 19', 'Jogo 20'],
+          datasets: [
+            {
+              label: 'Corinthians - Escanteios',
+              data: [5,6,4,8,6,5,4,5,7,6,5,4,6,6,5,7,6,4,5,5],
+              backgroundColor: '#00bfff'
+            },
+            {
+              label: 'Palmeiras - Escanteios',
+              data: [7,5,6,7,6,8,6,7,6,5,7,7,6,6,8,7,7,6,7,5],
+              backgroundColor: '#ffa500'
+            }
+          ]
+        }
+      });
+
+      const cartoes = document.getElementById('graficoCartoes').getContext('2d');
+      new Chart(cartoes, {
+        type: 'bar',
+        data: {
+          labels: ['Jogo 1', 'Jogo 2', 'Jogo 3', 'Jogo 4', 'Jogo 5', 'Jogo 6', 'Jogo 7', 'Jogo 8', 'Jogo 9', 'Jogo 10', 'Jogo 11', 'Jogo 12', 'Jogo 13', 'Jogo 14', 'Jogo 15', 'Jogo 16', 'Jogo 17', 'Jogo 18', 'Jogo 19', 'Jogo 20'],
+          datasets: [
+            {
+              label: 'Corinthians - Cartões',
+              data: [3,2,1,3,3,2,2,3,1,2,3,2,2,3,2,2,3,1,2,2],
+              backgroundColor: '#ff4444'
+            },
+            {
+              label: 'Palmeiras - Cartões',
+              data: [2,1,1,2,3,2,1,2,2,3,2,1,1,3,2,2,3,2,1,1],
+              backgroundColor: '#44ff44'
+            }
+          ]
+        }
+      });
+    }
+  </script>
+</body>
+</html>
